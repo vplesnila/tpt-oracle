@@ -18,7 +18,7 @@ select
 	child_number	sql_child_number,
 	sql_text sql_sql_text
 from 
-	v$sql 
+	gv$sql 
 where 
 	sql_id = ('&1')
 and child_number like '&2'
