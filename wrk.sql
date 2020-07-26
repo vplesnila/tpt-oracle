@@ -15,10 +15,12 @@ COL wrk_last_execution HEAD LAST_EXEC  FOR A15
 COL wrk_max_tempseg_size HEAD MAX_TEMP
 COL wrk_last_tempseg_size HEAD LAST_TEMP
 COL wrk_last_memory_used HEAD LAST_MEM
+COL inst_id head I for 9
 
 SELECT
   --  address
-    sql_id
+  inst_id
+  , sql_id
   , child_number
   , operation_id           wrk_operation_id
   , operation_type         wrk_operation_type 
@@ -36,7 +38,7 @@ SELECT
   , onepass_executions    
   , multipasses_executions
 FROM 
-    v$sql_workarea 
+    gv$sql_workarea 
 WHERE 
     &1
 ORDER BY

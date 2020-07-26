@@ -5,7 +5,8 @@ prompt Show instance memory usage breakdown from v$memory_dynamic_components
 COL mem_component HEAD COMPONENT FOR A35
 
 SELECT
-    component mem_component
+  inst_id
+  , component mem_component
   , ROUND(current_size/1048576) cur_mb
   , ROUND(min_size/1048576)     min_mb
   , ROUND(max_size/1048576)     max_mb
@@ -16,7 +17,10 @@ SELECT
   , last_oper_time last_optime
   , granule_size/1048576        gran_mb
 FROM
-    v$sga_dynamic_components
+    gv$sga_dynamic_components
+ORDER BY
+    inst_id,
+    component
 /
 
   

@@ -2,7 +2,8 @@
 -- Licensed under the Apache License, Version 2.0. See LICENSE.txt for terms & conditions.
 
 col sql_sql_text head SQL_TEXT format a150 word_wrap
-col sql_child_number head CH# for 9999
+col sql_child_number head CH# for 99
+col inst_id head "#" for 9
 
 
 col cpu_sec_exec   FOR 999999.999
@@ -13,6 +14,7 @@ col pios_per_exec  FOR 9999999999
 prompt Show SQL text, child cursors and execution stats for SQLID &1 child &2
 
 select 
+    inst_id,
 	hash_value,
 	plan_hash_value,
 	child_number	sql_child_number,
@@ -29,6 +31,7 @@ order by
 /
 
 select 
+    inst_id,
 	child_number	sql_child_number,
 	plan_hash_value plan_hash,
 	parse_calls parses,
@@ -64,7 +67,7 @@ select
 	, address		parent_handle
 	, child_address   object_handle
 from 
-	v$sql
+	gv$sql
 where 
 	sql_id = ('&1')
 and child_number like '&2'
